@@ -3,7 +3,7 @@ package com.test.hyy.controller;
 import com.github.pagehelper.PageInfo;
 
 import com.test.hyy.pojo.Teacher;
-import com.test.hyy.service.TeacherService;
+import com.test.hyy.service.api.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

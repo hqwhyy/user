@@ -1,4 +1,4 @@
-package com.test.hyy.service;
+package com.test.hyy.service.api;
 
 import com.github.pagehelper.PageInfo;
 import com.test.hyy.pojo.Teacher;
