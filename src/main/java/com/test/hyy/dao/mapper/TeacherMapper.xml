@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.ssm.dao.TeacherDAO">
+
+    <!--void addTeacher(Teacher teacher);-->
+    <insert id="addTeacher" parameterType="Teacher">
+        INSERT INTO TEACHER (NAME, EMAIL, PASSWORD, PHONE)
+        VALUES (#{name}, #{email}, #{password}, #{phone})
+    </insert>
+    <!-- void updateTeacher(Teacher teacher);-->
+    <update id="updateTeacher" parameterType="Teacher">
+        update TEACHER
+        <set>
+            <if test="email !=null and email!=''">EMAIL=#{email},</if>
+            <if test="name !=null and name!=''">NAME=#{name},</if>
+            <if test="password !=null and password!=''">PASSWORD=#{password},</if>
+            <if test="phone !=null and phone!=''">PHONE=#{phone},</if>
+        </set>
+        where ID=#{id}
+    </update>
+    <!--void deleteTeacher(Integer id);-->
+    <delete id="deleteTeacher" parameterType="int">
+        delete from TEACHER  where ID=#{id}
+    </delete>
+
+    <!--提取公共代码-->
+    <sql id="select-teacher">
+        select ID,NAME, EMAIL, PASSWORD, PHONE
+        from TEACHER
+    </sql>
+    <!-- List <Teacher>getTeacherList(Teacher teacher);-->
+    <select id="getTeacherList"  parameterType="Teacher" resultType="Teacher">
+        <include refid="select-teacher"/>
+        <where>
+            <if test="name !=null and name!=''">NAME like concat('%',#{name},'%')</if>
+            <if test="phone !=null and phone!=''">and PHONE=#{phone}</if>
+        </where>
+    </select>
+    <!--Teacher getTeacherById(Integer id);-->
+    <select id="getTeacherById" parameterType="int" resultType="Teacher">
+        <include refid="select-teacher"/>
+        where ID=#{id}
+    </select>
+</mapper>
+    
